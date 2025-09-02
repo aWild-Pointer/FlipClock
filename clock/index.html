@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="flipclock.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Flip Clock</title>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="#" class="active" data-mode="time">时间</a></li>
+            <li><a href="#" data-mode="countup">正计时</a></li>
+            <li><a href="#" data-mode="countdown">倒计时</a></li>
+        </ul>
+    </nav>
+
+    <!-- 主容器 -->
+    <div class="container">
+        <!-- 时间显示 -->
+        <div id="time-container">
+            <div id="time-clock" class="clock"></div>
+            <div id="date-info">
+                <div id="gregorian-date"></div>
+                <div id="lunar-date"></div>
+                <div id="weekday"></div>
+            </div>
+        </div>
+        
+        <!-- 正计时显示 -->
+        <div id="countup-container">
+            <div id="countup-clock" class="clock hidden"></div>
+            <div class="controls hidden">
+                <button id="start-countup">开始</button>
+                <button id="stop-countup">停止</button>
+                <button id="reset-countup">重置</button>
+            </div>
+        </div>
+        
+        <!-- 倒计时显示 -->
+        <div id="countdown-container">
+            <div id="countdown-clock" class="clock hidden"></div>
+            <div class="controls hidden">
+                <div class="time-inputs">
+                    <label for="countdown-hours">时:</label>
+                    <input type="number" id="countdown-hours" class="time-input" value="0" min="0" max="23">
+                    <label for="countdown-minutes">分:</label>
+                    <input type="number" id="countdown-minutes" class="time-input" value="1" min="0" max="59">
+                    <label for="countdown-seconds">秒:</label>
+                    <input type="number" id="countdown-seconds" class="time-input" value="0" min="0" max="59">
+                </div>
+                <button id="start-countdown">开始</button>
+                <button id="stop-countdown">停止</button>
+                <button id="reset-countdown">重置</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="flipclock.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/lunar-javascript/1.7.3/lunar.min.js"></script>
+    <script type="text/javascript">
+        // 初始化时钟对象
+        var timeClock = null;
+        var countupClock = null;
+        var countdownClock = null;
+
+        // 当前激活的时钟模式
+        var activeMode = 'time';
+
+        // 更新日期信息的函数
+        function updateDateInfo() {
+            const now = new Date();
+            
+            // 获取公历年月日
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            
+            // 获取星期几
+            const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            const weekday = weekdays[now.getDay()];
+            
+            // 显示公历日期
+            $('#gregorian-date').text(`${year}年${month}月${day}日`);
+            
+            // 显示星期几
+            $('#weekday').text(weekday);
+            
+            // 使用lunar-javascript库获取农历日期
+            const solar = Solar.fromYmd(year, parseInt(month), parseInt(day));
+            const lunar = solar.getLunar();
+            $('#lunar-date').text(`${lunar.getMonthInChinese()}月${lunar.getDayInChinese()}`);
+        }
+
+        $(document).ready(function() {
+            // 初始化时间时钟
+            timeClock = $('#time-clock').FlipClock({
+                clockFace: 'TwentyFourHourClock',
+                callbacks: {
+                    interval: function() {
+                        // 每秒更新一次日期信息
+                        updateDateInfo();
+                    }
+                }
+            });
+
+            // 初始化正计时时钟
+            countupClock = $('#countup-clock').FlipClock(0, {
+                clockFace: 'HourlyCounter'
+            });
+            countupClock.stop(); // 默认停止
+
+            // 初始化倒计时时钟
+            countdownClock = $('#countdown-clock').FlipClock(0, {
+                clockFace: 'HourlyCounter',
+                countdown: true
+            });
+            countdownClock.stop(); // 默认停止
+
+            // 初始更新日期信息
+            updateDateInfo();
+
+            // 导航栏点击事件
+            $('.navbar a').on('click', function(e) {
+                e.preventDefault();
+                
+                // 移除所有激活状态
+                $('.navbar a').removeClass('active');
+                
+                // 添加当前激活状态
+                $(this).addClass('active');
+                
+                // 隐藏所有时钟
+                $('.clock').addClass('hidden');
+                $('.controls').addClass('hidden');
+                $('#date-info').addClass('hidden');
+                
+                // 获取模式
+                var mode = $(this).data('mode');
+                activeMode = mode;
+                
+                // 显示对应的时钟和控制按钮
+                if (mode === 'time') {
+                    $('#time-clock').removeClass('hidden');
+                    $('#date-info').removeClass('hidden');
+                } else if (mode === 'countup') {
+                    $('#countup-clock').removeClass('hidden');
+                    $('#countup-container .controls').removeClass('hidden');
+                } else if (mode === 'countdown') {
+                    $('#countdown-clock').removeClass('hidden');
+                    $('#countdown-container .controls').removeClass('hidden');
+                }
+            });
+
+            // 正计时控制按钮
+            $('#start-countup').on('click', function() {
+                countupClock.start();
+            });
+
+            $('#stop-countup').on('click', function() {
+                countupClock.stop();
+            });
+
+            $('#reset-countup').on('click', function() {
+                countupClock.reset();
+            });
+
+           // 倒计时控制按钮
+            $('#start-countdown').on('click', function() {
+                var hours = parseInt($('#countdown-hours').val()) || 0;
+                var minutes = parseInt($('#countdown-minutes').val()) || 0;
+                var seconds = parseInt($('#countdown-seconds').val()) || 0;
+                var totalSeconds = hours * 3600 + minutes * 60 + seconds;
+                countdownClock.setTime(totalSeconds);
+                countdownClock.start();
+            });
+
+            $('#stop-countdown').on('click', function() {
+                countdownClock.stop();
+            });
+
+            $('#reset-countdown').on('click', function() {
+                var hours = parseInt($('#countdown-hours').val()) || 0;
+                var minutes = parseInt($('#countdown-minutes').val()) || 0;
+                var seconds = parseInt($('#countdown-seconds').val()) || 0;
+                var totalSeconds = hours * 3600 + minutes * 60 + seconds;
+                countdownClock.setTime(totalSeconds);
+                countdownClock.stop();
+            });
+        });
+    </script>
+</body>
+</html>

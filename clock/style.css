@@ -1,0 +1,280 @@
+/* 覆盖FlipClock默认样式以实现居中 */
+.flip-clock-wrapper {
+    width: auto !important;
+    margin: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+/* 设置页面背景为黑色 */
+body {
+    background-color: #000;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* 导航栏样式 */
+.navbar {
+    background-color: #333;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar li {
+    margin: 0;
+}
+
+.navbar a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.navbar a:hover,
+.navbar a.active {
+    background-color: #555;
+}
+
+/* 响应式布局样式 */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 50px); /* 减去导航栏高度 */
+    width: 100%;
+}
+
+/* 时间容器样式 */
+#time-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 日期信息样式 */
+#date-info {
+    text-align: center;
+    margin-top: 20px;
+    color: white;
+    font-size: 24px;
+}
+
+#date-info div {
+    margin: 5px 0;
+}
+
+/* 隐藏元素的类 */
+.hidden {
+    display: none !important;
+}
+
+/* 控制按钮样式 */
+.controls {
+    text-align: center;
+    margin-top: 20px;
+    color: white;
+}
+
+.controls button {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.controls button:hover {
+    background-color: #666;
+}
+
+.controls input {
+    padding: 5px;
+    margin: 0 10px;
+    width: 80px;
+    text-align: center;
+}
+
+.controls label {
+    color: white;
+    margin-right: 10px;
+}
+
+.time-inputs {
+    margin-bottom: 10px;
+}
+
+.time-inputs label {
+    color: white;
+    margin: 0 5px;
+}
+
+.time-input {
+    padding: 5px;
+    margin: 0 5px;
+    width: 50px;
+    text-align: center;
+}
+
+/* 媒体查询以适应不同屏幕尺寸 */
+@media (max-width: 768px) {
+    .flip-clock-wrapper ul {
+        width: 45px;
+        height: 65px;
+        font-size: 50px;
+        line-height: 62px;
+        margin: 3px;
+    }
+    
+    .flip-clock-wrapper ul li a div div.inn {
+        font-size: 45px;
+        line-height: 65px;
+    }
+    
+    .flip-clock-dot {
+        width: 6px;
+        height: 6px;
+        left: 7px;
+    }
+    
+    .flip-clock-dot.top {
+        top: 20px;
+    }
+    
+    .flip-clock-dot.bottom {
+        bottom: 20px;
+    }
+    
+    .navbar a {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+    
+    #date-info {
+        font-size: 20px;
+    }
+    
+    .container {
+        min-height: calc(100vh - 80px); /* 调整高度以适应垂直导航 */
+    }
+}
+
+@media (max-width: 480px) {
+    .flip-clock-wrapper ul {
+        width: 35px;
+        height: 50px;
+        font-size: 35px;
+        line-height: 47px;
+        margin: 2px;
+    }
+    
+    .flip-clock-wrapper ul li a div div.inn {
+        font-size: 30px;
+        line-height: 50px;
+    }
+    
+    .flip-clock-dot {
+        width: 4px;
+        height: 4px;
+        left: 8px;
+    }
+    
+    .flip-clock-dot.top {
+        top: 15px;
+    }
+    
+    .flip-clock-dot.bottom {
+        bottom: 15px;
+    }
+    
+    /* 移除导航栏垂直排列设置，保持横向排列 */
+    .navbar a {
+        padding: 10px 15px;
+        font-size: 12px;
+    }
+    
+    .container {
+        min-height: calc(100vh - 80px); /* 调整高度以适应横向导航 */
+    }
+    
+    .controls input {
+        width: 60px;
+    }
+    
+    #date-info {
+        font-size: 16px;
+    }
+}
+
+/* 针对超小屏幕设备的优化 */
+@media (max-width: 320px) {
+    .flip-clock-wrapper ul {
+        width: 25px;
+        height: 35px;
+        font-size: 20px;
+        line-height: 32px;
+        margin: 1px;
+    }
+    
+    .flip-clock-wrapper ul li a div div.inn {
+        font-size: 18px;
+        line-height: 35px;
+    }
+    
+    .flip-clock-dot {
+        width: 2px;
+        height: 2px;
+        left: 4px;
+    }
+    
+    .flip-clock-dot.top {
+        top: 10px;
+    }
+    
+    .flip-clock-dot.bottom {
+        bottom: 10px;
+    }
+    
+    /* 保持导航栏横向排列 */
+    .navbar a {
+        padding: 8px 10px;
+        font-size: 10px;
+    }
+    
+    #date-info {
+        font-size: 14px;
+        margin-top: 10px;
+    }
+    
+    .controls button {
+        padding: 5px 8px;
+        margin: 0 1px;
+        font-size: 11px;
+        min-width: 40px;
+    }
+    
+    .time-input {
+        width: 35px;
+        padding: 2px;
+        margin: 0 2px;
+    }
+    
+    .container {
+        min-height: calc(100vh - 80px); /* 调整高度以适应横向导航 */
+    }
+}
