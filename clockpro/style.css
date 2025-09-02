@@ -1,0 +1,614 @@
+/* 覆盖FlipClock默认样式以实现居中 */
+.flip-clock-wrapper {
+    width: auto !important;
+    margin: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+/* 设置页面背景为黑色 */
+body {
+    background-color: #000;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* 导航栏样式 */
+.navbar {
+    background-color: #333;
+    padding: 0;
+    margin: 0;
+    position: relative; /* 添加相对定位以便z-index生效 */
+    z-index: 2000; /* 设置比音乐控制更高的z-index */
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar li {
+    margin: 0;
+}
+
+.navbar a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    position: relative; /* 添加相对定位 */
+    z-index: 1; /* 确保链接在导航栏之上 */
+    min-width: 80px; /* 增加最小宽度，确保足够的点击区域 */
+}
+
+.navbar a:hover,
+.navbar a.active {
+    background-color: #555;
+}
+
+/* 响应式布局样式 */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 50px); /* 减去导航栏高度 */
+    width: 100%;
+}
+
+/* 时间容器样式 */
+#time-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px; /* 添加这一行，将整个时钟区域向下移动50像素 */
+}
+
+/* 日期信息样式 */
+#date-info {
+    text-align: center;
+    margin-top: 20px;
+    color: white;
+    font-size: 24px;
+}
+
+#date-info div {
+    margin: 5px 0;
+}
+
+/* 隐藏元素的类 */
+.hidden {
+    display: none !important;
+}
+
+/* 控制按钮样式 */
+.controls {
+    text-align: center;
+    margin-top: 30px;
+    color: white;
+}
+
+.controls button {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.controls button:hover {
+    background-color: #666;
+}
+
+.controls input {
+    padding: 5px;
+    margin: 0 10px;
+    top: 10px;
+    width: 80px;
+    text-align: center;
+}
+
+.controls label {
+    color: white;
+    margin-right: 10px;
+}
+
+.time-inputs {
+    margin-bottom: 10px;
+}
+
+.time-inputs label {
+    color: white;
+    margin: 0 5px;
+}
+
+.time-input {
+    padding: 5px;
+    margin: 0 5px;
+    width: 50px;
+    text-align: center;
+}
+
+/* 音乐控制按钮样式 */
+#music-controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+/* 音乐按钮样式 */
+.music-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    width: 140px;  /* 增加宽度以适应音乐名称 */
+    height: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.music-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+.music-btn.playing {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+/* 音乐名称样式 */
+#music-name {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* 音乐切换器样式 */
+.music-switcher {
+    position: absolute;
+    bottom: 60px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* 音乐选项按钮样式 */
+.music-option {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 20px !important;
+
+    width: 120px !important;  /* 增加宽度 */
+
+    height: 40px !important;
+
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+}
+
+.music-option:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+.music-option.active {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+/* 音乐切换器中的完整音乐名称样式 */
+.music-full-name {
+    font-weight: bold;
+    text-align: center;
+}
+
+/* 媒体查询中的音乐按钮样式 */
+@media (max-width: 768px) {
+    .music-btn {
+        width: 120px;
+        height: 45px;
+        font-size: 14px;
+    }
+    
+    .music-option {
+        width: 100px;
+        height: 35px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .music-btn {
+        width: 100px;
+        height: 40px;
+        font-size: 12px;
+    }
+    
+    .music-option {
+        width: 90px;
+        height: 30px;
+        font-size: 11px;
+    }
+}
+
+/* 媒体查询以适应不同屏幕尺寸 */
+@media (max-width: 768px) {
+    /* 其他样式保持不变 */
+
+    /* 调整音乐按钮在小屏幕上的大小 */
+    .music-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* 其他样式保持不变 */
+
+    /* 调整音乐按钮在小屏幕上的大小 */
+    .music-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+}
+
+/* 针对超小屏幕设备的优化 */
+@media (max-width: 320px) {
+    /* 其他样式保持不变 */
+
+    /* 调整音乐按钮在小屏幕上的大小 */
+    .music-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+}
+
+/* 按钮禁用状态样式 */
+.controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* 音乐切换器样式 */
+.music-switcher {
+    position: absolute;
+    bottom: 60px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.music-option {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.music-option:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+.music-option.active {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+/* 媒体查询中的音乐切换器样式 */
+@media (max-width: 768px) {
+    .music-switcher {
+        bottom: 55px;
+    }
+
+    .music-option {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .music-switcher {
+        bottom: 50px;
+    }
+
+    .music-option {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 320px) {
+    .music-switcher {
+        bottom: 45px;
+    }
+
+    .music-option {
+        width: 25px;
+        height: 25px;
+        font-size: 10px;
+    }
+}
+
+/* 自定义音乐切换按钮图标样式 */
+.custom-icon {
+    font-weight: bold;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 媒体查询中的自定义图标样式 */
+@media (max-width: 768px) {
+    .custom-icon {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .custom-icon {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 320px) {
+    .custom-icon {
+        font-size: 12px;
+    }
+}
+
+/* 快捷选项按钮样式 */
+.quick-options {
+    margin: 15px 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+}
+
+.quick-btn {
+    background-color: #444 !important;
+    color: white !important;
+    border: none !important;
+    padding: 8px 16px !important;
+    margin: 5px !important;
+    cursor: pointer !important;
+    border-radius: 20px !important; /* 保持椭圆形 */
+    transition: background-color 0.3s !important;
+    font-size: 14px !important;
+    min-width: 70px !important;
+}
+
+.quick-btn:hover {
+    background-color: #666 !important;
+}
+
+.quick-btn:active {
+    background-color: #333 !important;
+}
+
+/* 响应式布局中的快捷按钮 */
+@media (max-width: 768px) {
+    .quick-btn {
+        padding: 6px 12px;
+        font-size: 13px;
+        margin: 4px;
+        min-width: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .quick-btn {
+        padding: 5px 10px;
+        font-size: 12px;
+        margin: 3px;
+        min-width: 50px;
+    }
+}
+
+/* 调整时钟大小 */
+.clock {
+    transform: scale(1.8); /* 将时钟放大1.5倍，从原来的1.2倍增大 */
+    transform-origin: center bottom; /* 将缩放原点改为底部中心，保持底部位置不变 */
+    margin: 10px 0; /* 添加一些边距 */
+}
+
+/* 针对不同屏幕尺寸的响应式调整 */
+@media (max-width: 768px) {
+    .clock {
+        transform: scale(1.3); /* 在中等屏幕稍微小一点 */
+    }
+}
+
+@media (max-width: 480px) {
+    .clock {
+        transform: scale(1.1); /* 在小屏幕上保持适中的大小 */
+    }
+}
+
+/* 加载动画样式 */
+#loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+#loading-overlay p {
+    color: white;
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+/* 全屏控制按钮样式 */
+#fullscreen-controls {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+.fullscreen-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fullscreen-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+/* 全屏模式提示信息 */
+.fullscreen-hint {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* 全屏模式下的样式调整 */
+.fullscreen-mode .navbar {
+    display: none;
+}
+
+.fullscreen-mode .container {
+    min-height: 100vh;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.fullscreen-mode #date-info {
+    font-size: clamp(18px, 3vw, 28px);
+    margin-top: 20px;
+}
+
+.fullscreen-mode .clock {
+    transform: scale(clamp(1.0, 5vw, 1.3));
+    margin: 20px 0;
+    max-width: 100%;
+}
+
+.fullscreen-mode .controls {
+    margin-top: 30px;
+}
+
+.fullscreen-mode .controls button {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.fullscreen-mode #music-controls,
+.fullscreen-mode #fullscreen-controls {
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.fullscreen-mode #music-controls:hover,
+.fullscreen-mode #fullscreen-controls:hover {
+    opacity: 1;
+}
+
+.fullscreen-mode .fullscreen-hint {
+    opacity: 1;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .fullscreen-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .fullscreen-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+}

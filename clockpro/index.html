@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="flipclock.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Flip Clock Pro</title>
+</head>
+<body>
+    <!-- 加载动画 -->
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <p>加载中...</p>
+    </div>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="#" class="active" data-mode="time">时间</a></li>
+            <li><a href="#" data-mode="countup">正计时</a></li>
+            <li><a href="#" data-mode="countdown">倒计时</a></li>
+        </ul>
+    </nav>
+
+    <!-- 主容器 -->
+    <div class="container">
+        <!-- 时间显示 -->
+        <div id="time-container">
+            <div id="time-clock" class="clock"></div>
+            <div id="date-info">
+                <div id="gregorian-date"></div>
+                <div id="lunar-date"></div>
+                <div id="weekday"></div>
+            </div>
+        </div>
+        
+        <!-- 正计时显示 -->
+        <div id="countup-container">
+            <div id="countup-clock" class="clock hidden"></div>
+            <div class="controls hidden">
+                <button id="start-countup">开始</button>
+                <button id="stop-countup">停止</button>
+                <button id="reset-countup">重置</button>
+            </div>
+        </div>
+        
+        <!-- 倒计时显示 -->
+        <div id="countdown-container">
+            <div id="countdown-clock" class="clock hidden"></div>
+            <div class="controls hidden">
+                <div class="time-inputs">
+                    <label for="countdown-hours">时:</label>
+                    <input type="number" id="countdown-hours" class="time-input" value="0" min="0" max="23">
+                    <label for="countdown-minutes">分:</label>
+                    <input type="number" id="countdown-minutes" class="time-input" value="1" min="0" max="59">
+                    <label for="countdown-seconds">秒:</label>
+                    <input type="number" id="countdown-seconds" class="time-input" value="0" min="0" max="59">
+                </div>
+                <!-- 添加快捷选项按钮 -->
+                <div class="quick-options">
+                    <button class="quick-btn" data-minutes="5">5分钟</button>
+                    <button class="quick-btn" data-minutes="15">15分钟</button>
+                    <button class="quick-btn" data-minutes="30">30分钟</button>
+                    <button class="quick-btn" data-minutes="45">45分钟</button>
+                    <button class="quick-btn" data-minutes="60">60分钟</button>
+                </div>
+                <button id="start-countdown">开始</button>
+                <button id="stop-countdown">停止</button>
+                <button id="reset-countdown">重置</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 音乐控制 -->
+    <div id="music-controls">
+        <audio id="background-music" loop>
+            <source src="media/exercise.aac" type="audio/aac">
+            您的浏览器不支持音频元素。
+        </audio>
+        <button id="music-toggle" class="music-btn">
+            <i class="fas fa-volume-mute"></i>
+            <span id="music-name"></span>
+        </button>
+        <!-- 添加音乐切换按钮 -->
+        <div id="music-switcher" class="music-switcher hidden">
+            <button class="music-option" data-src="media/exercise.aac" data-name="Exercise">
+                <span class="music-full-name">Exercise</span>
+            </button>
+            <button class="music-option" data-src="media/focus.aac" data-name="Focus">
+                <span class="music-full-name">Focus</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- 添加全屏按钮 -->
+    <div id="fullscreen-controls">
+        <button id="fullscreen-toggle" class="fullscreen-btn">
+            <i class="fas fa-expand"></i>
+        </button>
+    </div>
+
+    <!-- 添加全屏提示信息 -->
+    <div class="fullscreen-hint">
+        全屏模式: 按F11进入/退出全屏, 1-3切换时钟模式, M控制音乐
+    </div>
+
+    <!-- 在</body>标签前添加 -->
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.js" defer></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+    <script src="flipclock.js" defer></script>
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/lunar-javascript/1.7.3/lunar.min.js" defer></script> -->
+    <script src="lunar.js" defer></script>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
