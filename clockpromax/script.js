@@ -809,6 +809,20 @@ function changeClockColor(color) {
         .color-btn {
             background: linear-gradient(135deg, ${color} 0%, ${darkenColor(color, 20)} 100%) !important;
         }
+        
+        /* 按钮文字颜色 */
+        .controls button,
+        .quick-btn,
+        .time-btn {
+            color: ${color} !important;
+        }
+        
+        /* 导航栏链接颜色 */
+        .navbar a {
+            color: ${color} !important;
+        }
+        
+
     `;
     
     // 隐藏颜色选择器

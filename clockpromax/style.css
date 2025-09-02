@@ -819,7 +819,7 @@ body {
     transition: all 0.3s ease;
 }
 
-/* 颜色选项悬停效果 - 注意：有重复定义（704-707行和716-719行） */
+/* 颜色选项悬停效果 */
 .color-option:hover {
     transform: scale(1.2);
     box-shadow: 0 0 10px rgba(255,255,255,0.5);
