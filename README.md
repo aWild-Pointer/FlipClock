@@ -162,6 +162,7 @@
 3. **全新项目推荐直接使用Pro Max版**: 功能最完整，体验最佳
 
 ## 音乐来源：O Relax（https://www.youtube.com/watch?v=gPxbFFgPPXQ）
+## flipclock来源：https://github.com/objectivehtml/FlipClock
 
 ## 总结
 
