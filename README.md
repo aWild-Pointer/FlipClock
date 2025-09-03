@@ -163,6 +163,7 @@
 
 ## 音乐来源：O Relax（https://www.youtube.com/watch?v=gPxbFFgPPXQ）
 ## flipclock来源：https://github.com/objectivehtml/FlipClock
+## lunar.js来源：https://cdn.bootcdn.net/ajax/libs/lunar-javascript/1.7.3/lunar.min.js
 
 ## 总结
 
