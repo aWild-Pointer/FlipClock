@@ -5,6 +5,7 @@
 
 ### 1. Flip Clock 基础版 (clock文件夹)
 **定位**: 简洁基础的时间工具
+<img width="2479" height="1266" alt="image" src="https://github.com/user-attachments/assets/d47580e4-2054-4542-a0e7-03e3eef216f4" />
 
 **核心功能**:
 - 时间显示（24小时制）
@@ -21,6 +22,7 @@
 
 ### 2. Flip Clock Pro 版 (clockpro文件夹)  
 **定位**: 功能增强的专业版本
+<img width="2479" height="1266" alt="image" src="https://github.com/user-attachments/assets/da4bea5b-2cdb-4c37-b3e6-4fdd3cfc04a9" />
 
 **新增功能**（相比基础版）:
 -  音乐播放控制（Exercise/Focus两首背景音乐）
@@ -43,6 +45,7 @@
 
 ### 3. Flip Clock Pro Max 版 (clockpromax)
 **定位**: 豪华功能版本
+<img width="2479" height="1266" alt="image" src="https://github.com/user-attachments/assets/8f095a40-b0df-40e1-ab03-73797af1612a" />
 
 **新增功能**（相比Pro版）:
 -  **12种颜色主题**自由切换
